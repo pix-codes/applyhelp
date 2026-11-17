@@ -1,0 +1,39 @@
+[project]
+name = "apply-help"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "alembic>=1.13",
+    "beautifulsoup4>=4.12",
+    "cryptography>=42.0",
+    "httpx>=0.27",
+    "langchain>=0.2",
+    "langchain-core>=0.2",
+    "langchain-groq>=0.1",
+    "langchain-mistralai>=0.1",
+    "langchain-openai>=0.1",
+    "lxml>=5.2",
+    "psycopg[binary]>=3.1",
+    "pydantic>=2.7",
+    "pydantic-settings>=2.2",
+    "pymupdf>=1.24",
+    "pytest>=8.2",
+    "pytest-asyncio>=0.23",
+    "ruff>=0.4",
+    "sqlalchemy>=2.0",
+    "streamlit>=1.35",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+ignore = ["E501", "E402"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+asyncio_default_fixture_loop_scope = "function"

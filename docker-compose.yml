@@ -1,0 +1,39 @@
+services:
+  app:
+    build: .
+    container_name: apply_help_app
+    restart: unless-stopped
+    ports:
+      - "8501:8501"
+    environment:
+      # Connects to existing PostgreSQL instance running on host
+      - DATABASE_URL=postgresql+psycopg://postgres:postgres@host.docker.internal:5432/apply_help
+      - APP_SECRET_KEY=${APP_SECRET_KEY:-BEbXP8jmgz4cTxIWH2_iQxi_g8HsQ2ZcTv3bAR9I8F4=}
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - MISTRAL_API_KEY=${MISTRAL_API_KEY}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENAI_BASE_URL=${OPENAI_BASE_URL}
+      - CLOUDFLARE_GATEWAY_URL=${CLOUDFLARE_GATEWAY_URL}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./.env:/app/.env:ro
+
+  # Note: A dedicated postgres container is commented out below because
+  # PostgreSQL is already installed and running in your Docker environment.
+  # postgres:
+  #   image: postgres:alpine
+  #   container_name: apply_help_db
+  #   environment:
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: postgres
+  #     POSTGRES_DB: apply_help
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - pgdata:/var/lib/postgresql/data
+  # volumes:
+  #   pgdata:
